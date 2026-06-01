@@ -69,7 +69,7 @@ export default function ReportsPage() {
             <PieChart>
               <Pie data={pieData} cx="50%" cy="50%" innerRadius={70} outerRadius={110}
                 dataKey="value" nameKey="name" paddingAngle={3}
-                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(1)}%`}
+                label={({ name, percent }) => `${name}: ${((percent ?? 0) * 100).toFixed(1)}%`}
                 labelLine={false}>
                 {pieData.map((_, index) => (
                   <Cell key={index} fill={COLORS[index]} />
