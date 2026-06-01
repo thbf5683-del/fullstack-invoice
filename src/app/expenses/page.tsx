@@ -20,8 +20,22 @@ interface Expense {
   notes?: string
 }
 
+type FormState = {
+  month: number
+  year: number
+  employeeName: string
+  position: string
+  department: string
+  baseSalary: number
+  overtime: number
+  bonus: number
+  deductions: number
+  status: 'pending' | 'paid'
+  notes: string
+}
+
 const CURRENT = new Date()
-const EMPTY_FORM = () => ({
+const EMPTY_FORM = (): FormState => ({
   month: CURRENT.getMonth() + 1,
   year: CURRENT.getFullYear(),
   employeeName: '',
@@ -31,7 +45,7 @@ const EMPTY_FORM = () => ({
   overtime: 0,
   bonus: 0,
   deductions: 0,
-  status: 'pending' as const,
+  status: 'pending',
   notes: '',
 })
 
@@ -63,22 +77,10 @@ export default function ExpensesPage() {
 
   const openCreate = () => { setEditing(null); setForm(EMPTY_FORM()); setShowModal(true) }
   const openEdit = (exp: Expense) => {
-  setEditing(exp)
-  setForm({
-    month: exp.month,
-    year: exp.year,
-    employeeName: exp.employeeName,
-    position: exp.position,
-    department: exp.department,
-    baseSalary: exp.baseSalary,
-    overtime: exp.overtime,
-    bonus: exp.bonus,
-    deductions: exp.deductions,
-    status: exp.status as 'pending',
-    notes: exp.notes || '',
-  })
-  setShowModal(true)
-}
+    setEditing(exp)
+    setForm({ month: exp.month, year: exp.year, employeeName: exp.employeeName, position: exp.position, department: exp.department, baseSalary: exp.baseSalary, overtime: exp.overtime, bonus: exp.bonus, deductions: exp.deductions, status: exp.status, notes: exp.notes || '' })
+    setShowModal(true)
+  }
   const handleDelete = async (id: string) => {
     if (!confirm('Xác nhận xoá?')) return
     await fetch(`/api/expenses/${id}`, { method: 'DELETE' })
