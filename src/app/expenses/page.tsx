@@ -62,7 +62,23 @@ export default function ExpensesPage() {
   useEffect(() => { fetchExpenses() }, [fetchExpenses])
 
   const openCreate = () => { setEditing(null); setForm(EMPTY_FORM()); setShowModal(true) }
-  const openEdit = (exp: Expense) => { setEditing(exp); setForm({ ...exp }); setShowModal(true) }
+  const openEdit = (exp: Expense) => {
+  setEditing(exp)
+  setForm({
+    month: exp.month,
+    year: exp.year,
+    employeeName: exp.employeeName,
+    position: exp.position,
+    department: exp.department,
+    baseSalary: exp.baseSalary,
+    overtime: exp.overtime,
+    bonus: exp.bonus,
+    deductions: exp.deductions,
+    status: exp.status as 'pending',
+    notes: exp.notes || '',
+  })
+  setShowModal(true)
+}
   const handleDelete = async (id: string) => {
     if (!confirm('Xác nhận xoá?')) return
     await fetch(`/api/expenses/${id}`, { method: 'DELETE' })
