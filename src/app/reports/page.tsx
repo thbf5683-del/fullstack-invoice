@@ -52,7 +52,7 @@ export default function ReportsPage() {
               <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} axisLine={false} tickLine={false} />
               <YAxis tick={{ fontSize: 10, fill: '#94a3b8' }} axisLine={false} tickLine={false}
                 tickFormatter={v => v >= 1e9 ? `${(v/1e9).toFixed(1)}B` : v >= 1e6 ? `${(v/1e6).toFixed(0)}M` : `${v}`} />
-              <Tooltip formatter={(value: number) => formatVND(value)} />
+              <Tooltip formatter={(value) => formatVND(Number(value))} />
               <Legend wrapperStyle={{ fontSize: 12 }} />
               <Bar dataKey="revenue" name="Doanh thu" fill="#10b981" radius={[3,3,0,0]} />
               <Bar dataKey="cost" name="Chi phí" fill="#f43f5e" radius={[3,3,0,0]} />
@@ -75,7 +75,7 @@ export default function ReportsPage() {
                   <Cell key={index} fill={COLORS[index]} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: number) => formatVND(value)} />
+              <Tooltip formatter={(value) => formatVND(Number(value))} />
             </PieChart>
           </ResponsiveContainer>
           <div className="grid grid-cols-2 gap-3 mt-2">
